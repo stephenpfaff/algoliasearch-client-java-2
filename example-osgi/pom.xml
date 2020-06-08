@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.algolia</groupId>
+    <artifactId>example-osgi</artifactId>
+    <version>3.9.0</version>
+    <packaging>bundle</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>4.2.1</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>com.algolia.osgi</Export-Package>
+                        <Export-Package>com.algolia.search.*</Export-Package>
+                        <Export-Package>org.osgi.framework.*</Export-Package>
+                        <Bundle-SymbolicName>com.algolia.example-osgi</Bundle-SymbolicName>
+                        <Bundle-Name>example-osgi</Bundle-Name>
+                        <Bundle-Activator>com.algolia.osgi.DemoBundle</Bundle-Activator>
+                        <Import-Package>
+                            org.osgi.framework.*
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.algolia</groupId>
+            <artifactId>algoliasearch-core</artifactId>
+            <version>3.9.0</version>
+            <scope>system</scope>
+            <systemPath>/Users/anthony.seure/algolia/algoliasearch-client-java-2/algoliasearch-core-uber/target/algoliasearch-core-uber-3.9.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.algolia</groupId>
+            <artifactId>algoliasearch-apache</artifactId>
+            <version>3.9.0</version>
+            <scope>system</scope>
+            <systemPath>/Users/anthony.seure/algolia/algoliasearch-client-java-2/algoliasearch-apache-uber/target/algoliasearch-apache-uber-3.9.0.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+
+</project>
