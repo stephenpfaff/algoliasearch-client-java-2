@@ -871,4 +871,20 @@ class JacksonParserTest {
         .isEqualTo(
             "{\"objectID\":\"myID\",\"update\":{\"_operation\":\"Remove\",\"value\":\"something\"}}");
   }
+
+  @Test
+  void enablePersonalization_setTrue() throws IOException {
+    IndexSettings settings = new IndexSettings().setEnablePersonalization(true);
+    IndexSettings result = serializeDeserialize(settings);
+    assertThat(result).isEqualToComparingFieldByField(settings);
+    assertThat(result.getEnablePersonalization()).isEqualTo(true);
+  }
+
+  @Test
+  void enablePersonalization_default() throws IOException {
+    IndexSettings settings = new IndexSettings();
+    IndexSettings result = serializeDeserialize(settings);
+    assertThat(result).isEqualToComparingFieldByField(settings);
+    assertThat(result.getEnablePersonalization()).isEqualTo(false);
+  }
 }
